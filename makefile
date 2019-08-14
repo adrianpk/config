@@ -44,5 +44,5 @@ deps:
 	$(GO_CMD) get -u github.com/google/uuid
 	$(GO_CMD) get -u github.com/mitchellh/mapstructure
 	$(GO_CMD) get -u github.com/streadway/amqp
-	$(GO_CMD) get -u gitlab.com/mikrowezel/backend/log
+	$(GO_CMD) get -u gitlab.com/mikrowezel/log
 

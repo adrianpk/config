@@ -1,3 +1,3 @@
-module gitlab.com/mikrowezel/backend/config
+module gitlab.com/mikrowezel/config
 
 go 1.12
