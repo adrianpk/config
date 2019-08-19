@@ -8,10 +8,10 @@ A [twelve-factor](https://12factor.net/config) config manager.
 
 Configured these environment variables
 ```shell
-export CFG_SERVER_HOST="localhost"
-export CFG_SERVER_PORT="8080"
-export CFG_ENV_DEV="true"
-export CFG_CONST_PI="3.14159"
+export MYSVC_SERVER_HOST="localhost"
+export MYSVC_SERVER_PORT="8080"
+export MYSVC_ENV_DEV="true"
+export MYSVC_CONST_PI="3.14159"
 ```
 
 A code like this
@@ -19,21 +19,22 @@ A code like this
 ```go
 package mypackage
 
+import(
+	"gitlab.com/mikrowezel/config"
+)
+
 func main() {
 	printConfig()
 }
 
 func printConfig() {
 	// Setup a config handler.
-	cfg := Config{}
-	cfg.SetNamespace("CFG")
+	cfg := config.Load("mysvc")
 
-	// Read and process environment variables.
-	res := cfg.readNamespaceEnvVars()
-
-	// Print values
-	fmt.Println("Host: ", res["server.host"])
-	fmt.Println("Port: ", res["server.port"])
+	// Print raw values
+	values := cfg.Get()
+	fmt.Println("Host: ", values["server.host"])
+	fmt.Println("Port: ", values["server.port"])
 
 	fmt.Println("----")
 
