@@ -7,6 +7,14 @@ import (
 	"strings"
 )
 
+// Load configuration.
+func Load(namespace string) *Config {
+	cfg := &Config{}
+	cfg.SetNamespace(namespace)
+	cfg.loadNamespaceEnvVars()
+	return cfg
+}
+
 // SetNamespace for configuration.
 func (c *Config) SetNamespace(namespace string) {
 	c.namespace = strings.ToUpper(namespace)
@@ -34,10 +42,10 @@ func (c *Config) get(reload bool) map[string]string {
 	return c.values
 }
 
-// Get read a specific namespaced  environment variables
+// Val read a specific namespaced  environment variable
 // And return its value.
 // An optional reload parameter lets re-read
-// the values from environment before.
+// the values from environment.
 func (c *Config) Val(key string, reload ...bool) (value string, ok bool) {
 	vals := c.get(false)
 	if len(reload) > 1 && reload[0] {
@@ -47,11 +55,11 @@ func (c *Config) Val(key string, reload ...bool) (value string, ok bool) {
 	return val, ok
 }
 
-// Get read a specific namespaced  environment variables
+// ValOrDef read a specific namespaced environment variables
 // And return its value.
 // A default value is returned if key value is not found.
 // An optional reload parameter lets re-read
-// the values from environment before.
+// the value from environment.
 func (c *Config) ValOrDef(key string, defVal string, reload ...bool) (value string) {
 	vals := c.get(false)
 	if len(reload) > 1 && reload[0] {
@@ -125,6 +133,12 @@ func (c *Config) ValAsBool(key string, defVal bool, reload ...bool) (value bool)
 		return defVal
 	}
 	return b
+}
+
+// loadNamespaceEnvVars load all visible environment variables
+// that belongs to the namespace.
+func (c *Config) loadNamespaceEnvVars() {
+	c.values = c.readNamespaceEnvVars()
 }
 
 // readNamespaceEnvVars reads all visible environment variables
