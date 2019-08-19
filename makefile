@@ -1,7 +1,7 @@
 # Vars
 STAGE_TAG=stage
 PROD_TAG=v0.0.1
-IMAGE_NAME=broker
+IMAGE_NAME=mwconfig
 
 # Accounts
 DOCKERHUB_USER=n/a
