@@ -174,7 +174,6 @@ func (c *Config) keyify(name string) string {
 	wnsp := strings.Join(split[1:], ".")
 	// Dot separated lowercased
 	dots := strings.ToLower(strings.Replace(wnsp, "_", ".", -1))
-	fmt.Println(dots)
 	return dots
 }
 
