@@ -24,6 +24,10 @@ func (c *Config) namespacePrefix() string {
 	return fmt.Sprintf("%s_", c.namespace)
 }
 
+func (c *Config) SetValues(values map[string]string) {
+	c.values = values
+}
+
 // Get reads all visible environment variables
 // that belongs to the namespace.
 // An optional reload parameter lets re-read
@@ -174,7 +178,6 @@ func (c *Config) keyify(name string) string {
 	wnsp := strings.Join(split[1:], ".")
 	// Dot separated lowercased
 	dots := strings.ToLower(strings.Replace(wnsp, "_", ".", -1))
-	fmt.Println(dots)
 	return dots
 }
 
